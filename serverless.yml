@@ -1,0 +1,84 @@
+
+service: serverless-aws-starter
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ${self:provider.environment.REGION}
+  iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+        Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_TODOS}"
+  environment: ${file(serverless.env.yml):${opt:stage, self:provider.stage}}
+
+functions:
+  create:
+      handler: todos/handler.createToDo
+      events:
+       - http:
+           path: todo
+           method: post
+           cors: true
+  read:
+      handler: todos/handler.readToDo
+      events:
+       - http:
+           path: todo/{id}
+           method: get
+           request:
+            parameters:
+              paths:
+                id: true
+            cors: true
+  readAll:
+      handler: todos/handler.readAllToDos
+      events:
+       - http:
+           path: todo/all
+           method: get
+           cors: true
+  update:
+      handler: todos/handler.updateToDo
+      events:
+       - http:
+           path: todo
+           method: patch
+           cors: true
+  delete:
+      handler: todos/handler.deleteToDo
+      events:
+       - http:
+           path: todo/{id}
+           method: delete
+           request:
+            parameters:
+              paths:
+                id: true
+            cors: true
+
+resources:
+  Resources:
+    QuestionsTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_TODOS}
+
+plugins:
+  - serverless-webpack
+  - serverless-offline

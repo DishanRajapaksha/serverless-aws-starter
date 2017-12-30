@@ -1,0 +1,40 @@
+
+# Compiled output
+.serverless/
+.webpack/
+dist/
+out-tsc/
+tmp/
+
+# Dependencies
+node_modules/
+
+# IDEs and editors
+.c9/
+.classpath/
+.idea/
+.launch/
+.project/
+.settings/
+.sublime-workspace/
+.vscode/
+
+# Misc
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+npm-debug.log
+testem.log
+typings/
+
+# ENV
+serverless.env.yml
+
+# E2E
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db

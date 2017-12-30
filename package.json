@@ -1,0 +1,37 @@
+{
+  "name": "serverless-aws-starter",
+  "version": "0.0.1",
+  "description": "Serverless AWS Starter",
+  "author": "Dishan Rajapaksha",
+  "license": "MIT",
+  "scripts": {
+    "dev": "serverless offline start",
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {
+    "@aws/dynamodb-auto-marshaller": "0.3.0",
+    "@aws/dynamodb-batch-iterator": "0.3.0",
+    "@aws/dynamodb-data-mapper": "0.3.0",
+    "@aws/dynamodb-data-mapper-annotations": "0.3.0",
+    "@aws/dynamodb-expressions": "0.3.0",
+    "aws-sdk": "2.172.0",
+    "dotenv": "4.0.0",
+    "uuid": "3.1.0",
+    "winston": "2.4.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "4.0.2",
+    "@types/lodash": "4.14.88",
+    "@types/node": "8.0.34",
+    "path": "0.12.7",
+    "serverless-domain-manager": "2.0.2",
+    "serverless-offline": "3.16.0",
+    "serverless-webpack": "4.1.0",
+    "ts-loader": "3.2.0",
+    "tslint": "5.8.0",
+    "tslint-microsoft-contrib": "5.0.1",
+    "typescript": "2.6.2",
+    "webpack": "3.10.0",
+    "webpack-node-externals": "1.6.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es5",
+      "es6",
+      "dom",
+      "es2015",
+      "esnext.asynciterable"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "removeComments": true,
+    "sourceMap": true,
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "es2016",
+    "experimentalDecorators": true
+  }
+}
