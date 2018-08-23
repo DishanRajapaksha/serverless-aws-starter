@@ -4,7 +4,7 @@ import * as DynamoDB from "aws-sdk/clients/dynamodb";
 
 import { ToDoModel } from "./models/todo";
 
-const client = new DynamoDB({ region: "ap-southeast-1" });
+const client = new DynamoDB({ region: process.env.region });
 const mapper = new DataMapper({ client });
 
 /**
@@ -54,14 +54,15 @@ export class ToDo {
   public async update(id, text, duedate) {
 
     const toUpdate = new ToDoModel();
+
     toUpdate.id = id;
     toUpdate.text = text;
     toUpdate.duedate = duedate;
     toUpdate.updatedAt = new Date().toISOString();
 
     const equalsExpressionPredicate: ConditionExpressionPredicate = {
-      type: "Equals",
       object: id,
+      type: "Equals",
     };
 
     const equalsExpression: ConditionExpression = {
@@ -84,6 +85,7 @@ export class ToDo {
   public async read(id) {
 
     const toGet = new ToDoModel();
+
     toGet.id = id;
 
     return await mapper.get(toGet);
@@ -123,8 +125,8 @@ export class ToDo {
     toDlete.id = id;
 
     const equalsExpressionPredicate: ConditionExpressionPredicate = {
-      type: "Equals",
       object: id,
+      type: "Equals",
     };
 
     const equalsExpression: ConditionExpression = {
