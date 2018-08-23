@@ -4,11 +4,7 @@
     "tslint:recommended"
   ],
   "jsRules": {},
-  "rules": {
-    "variable-name": [
-      "allow-leading-underscore"
-    ]
-  },
+  "rules": {},
   "rulesDirectory": [
     "node_modules/tslint-microsoft-contrib"
   ]

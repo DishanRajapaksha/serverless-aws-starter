@@ -3,8 +3,10 @@ service: serverless-aws-starter
 
 provider:
   name: aws
-  runtime: nodejs6.10
-  region: ${self:provider.environment.REGION}
+  runtime: nodejs8.10
+  region: ${opt:region, self:custom.defaultRegion}
+  endpointType: regional
+  logRetentionInDays: 7
   iamRoleStatements:
       - Effect: Allow
         Action:
@@ -14,22 +16,26 @@ provider:
           - dynamodb:PutItem
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem
-        Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_TODOS}"
-  environment: ${file(serverless.env.yml):${opt:stage, self:provider.stage}}
+        Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${opt:stage, self:provider.stage}_todos"
+
+  environment:
+    isOffline: ${self:custom.isOffline}
+    region: ${opt:region, self:custom.defaultRegion}
+    todosTable: ${opt:stage, self:provider.stage}/todos
 
 functions:
   create:
       handler: todos/handler.createToDo
       events:
        - http:
-           path: todo
+           path: todos
            method: post
            cors: true
   read:
       handler: todos/handler.readToDo
       events:
        - http:
-           path: todo/{id}
+           path: todos/{id}
            method: get
            request:
             parameters:
@@ -40,15 +46,19 @@ functions:
       handler: todos/handler.readAllToDos
       events:
        - http:
-           path: todo/all
+           path: todos
            method: get
            cors: true
   update:
       handler: todos/handler.updateToDo
       events:
        - http:
-           path: todo
+           path: todos/{id}
            method: patch
+           request:
+            parameters:
+              paths:
+                id: true
            cors: true
   delete:
       handler: todos/handler.deleteToDo
@@ -77,8 +87,26 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE_TODOS}
+        TableName: ${self:provider.environment.todosTable}
 
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-prune-plugin
+
+custom:
+  defaultRegion: ap-southeast-1
+  isOffline: false
+  serverlessOfflinePort: 3000
+  serverless-offline:
+    noAuth: ${self:provider.environment.isOffline}
+    noTimeout: ${self:provider.environment.isOffline}
+    port: ${self:custom.serverlessOfflinePort}
+    prefix: ${opt:stage, self:provider.stage}
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+    packager: 'npm'
+  prune:
+    automatic: true
+    number: 1

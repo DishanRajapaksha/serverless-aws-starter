@@ -1,11 +1,11 @@
-import {DataMapper} from "@aws/dynamodb-data-mapper";
-import {ConditionExpression, ConditionExpressionPredicate} from "@aws/dynamodb-expressions";
+import { DataMapper } from "@aws/dynamodb-data-mapper";
+import { ConditionExpression, ConditionExpressionPredicate } from "@aws/dynamodb-expressions";
 import * as DynamoDB from "aws-sdk/clients/dynamodb";
 
-import {ToDoModel} from "./models/todo";
+import { ToDoModel } from "./models/todo";
 
-const client = new DynamoDB({region: "ap-southeast-1"});
-const mapper = new DataMapper({client});
+const client = new DynamoDB({ region: "ap-southeast-1" });
+const mapper = new DataMapper({ client });
 
 /**
  * Class representing the methods for the todo model.
@@ -69,7 +69,7 @@ export class ToDo {
       subject: "id",
     };
 
-    return await mapper.update(toUpdate, {onMissing: "skip", condition: equalsExpression});
+    return await mapper.update(toUpdate, { onMissing: "skip", condition: equalsExpression });
   }
 
   /**
@@ -132,7 +132,7 @@ export class ToDo {
       subject: "id",
     };
 
-    return await mapper.delete(toDlete, {condition: equalsExpression});
+    return await mapper.delete(toDlete, { condition: equalsExpression });
   }
 
 }

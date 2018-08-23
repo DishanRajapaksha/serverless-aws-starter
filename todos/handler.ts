@@ -1,4 +1,4 @@
-import {ToDo} from "./todo";
+import { ToDo } from "./todo";
 
 export async function createToDo(event, context, callback) {
   try {
@@ -13,7 +13,7 @@ export async function createToDo(event, context, callback) {
 
     const response = {
       statusCode: 200,
-      body: JSON.stringify({message: "The item was created successfully"}),
+      body: JSON.stringify({ message: "The item was created successfully" }),
     };
 
     callback(null, response);
@@ -21,7 +21,7 @@ export async function createToDo(event, context, callback) {
 
     const response = {
       statusCode: 400,
-      body: JSON.stringify({message: "An error occured while creating the item.", error: err}),
+      body: JSON.stringify({ message: "An error occured while creating the item.", error: err }),
     };
     callback(null, response);
   }
@@ -46,7 +46,7 @@ export async function readToDo(event, context, callback) {
 
     const response = {
       statusCode: 400,
-      body: JSON.stringify({message: "An error occured while trying to retrive the item.", error: err}),
+      body: JSON.stringify({ message: "An error occured while trying to retrive the item.", error: err }),
     };
     callback(null, response);
   }
@@ -68,7 +68,7 @@ export async function readAllToDos(event, context, callback) {
   } catch (err) {
     const response = {
       statusCode: 400,
-      body: JSON.stringify({message: "An error occured while trying to retrive the items.", error: err}),
+      body: JSON.stringify({ message: "An error occured while trying to retrive the items.", error: err }),
     };
     callback(null, response);
   }
@@ -89,14 +89,14 @@ export async function updateToDo(event, context, callback) {
 
     const response = {
       statusCode: 200,
-      body: JSON.stringify({message: "The item was updated successfully"}),
+      body: JSON.stringify({ message: "The item was updated successfully" }),
     };
 
     callback(null, response);
   } catch (err) {
     const response = {
       statusCode: 400,
-      body: JSON.stringify({message: "An error occured while trying to update the item.", error: err}),
+      body: JSON.stringify({ message: "An error occured while trying to update the item.", error: err }),
     };
     callback(null, response);
   }
@@ -113,7 +113,7 @@ export async function deleteToDo(event, context, callback) {
 
     const response = {
       statusCode: 200,
-      body: JSON.stringify({message: "The item was deleted successfully"}),
+      body: JSON.stringify({ message: "The item was deleted successfully" }),
     };
 
     callback(null, response);
@@ -121,7 +121,7 @@ export async function deleteToDo(event, context, callback) {
 
     const response = {
       statusCode: 400,
-      body: JSON.stringify({message: "An error occured while trying to delete the item.", error: err}),
+      body: JSON.stringify({ message: "An error occured while trying to delete the item.", error: err }),
     };
     callback(null, response);
   }
